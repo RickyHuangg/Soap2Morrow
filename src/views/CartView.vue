@@ -1,7 +1,10 @@
 <script setup>
 import { useStore } from "../store/index.js";
-
 const store = useStore();
+
+const removeFromCart = async (index) => {
+  await store.removeFromCart(index);
+};
 </script>
 
 <template>
@@ -12,9 +15,10 @@ const store = useStore();
     </div>
   </div>
   <div class="buy">
-    <div v-for="movie in store.cart">
+    <div v-for="(movie, index) in store.cart" :key="index">
       <h1>{{ movie.title }}</h1>
       <img :src="`https://image.tmdb.org/t/p/w500/${movie.poster}`" />
+      <button @click="removeFromCart(index)">X</button>
     </div>
   </div>
 </template>
